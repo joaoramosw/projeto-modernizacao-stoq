@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel do Projeto - Modernização do Stoq</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #52606d;
+      --line: #d9e2ec;
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --blue: #2563eb;
+      --green: #15803d;
+      --red: #b91c1c;
+      --amber: #b45309;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font: 15px/1.5 Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 32px;
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+
+    section {
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .metric,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .node {
+      border-left: 5px solid var(--blue);
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .node strong {
+      display: block;
+    }
+
+    .node small {
+      color: var(--muted);
+    }
+
+    .risk-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .risk-list li {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: #fff;
+      margin-right: 6px;
+    }
+
+    .tag.red { background: var(--red); }
+    .tag.amber { background: var(--amber); }
+    .tag.green { background: var(--green); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef2f7;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    @media (max-width: 860px) {
+      .metrics,
+      .columns {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modernização do Stoq Retail Management System</h1>
+    <p>Projeto de engenharia reversa e evolução de sistema legado aplicado ao contexto de supermercado brasileiro.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Resumo Executivo</h2>
+      <div class="panel">
+        O Stoq foi analisado como um legado de varejo brasileiro com PDV, estoque, vendas, financeiro, fiscal e relatórios. A proposta recomenda modernização incremental, preservando o sistema em operação enquanto serviços críticos são extraídos e testados.
+      </div>
+    </section>
+
+    <section>
+      <h2>Métricas Coletadas</h2>
+      <div class="metrics">
+        <div class="metric"><strong>954</strong><span>arquivos Python</span></div>
+        <div class="metric"><strong>165.509</strong><span>linhas Python aproximadas</span></div>
+        <div class="metric"><strong>262</strong><span>patches de banco</span></div>
+        <div class="metric"><strong>397</strong><span>marcadores FIXME</span></div>
+        <div class="metric"><strong>219</strong><span>arquivos GTK/Glade .ui</span></div>
+        <div class="metric"><strong>433</strong><span>blocos duplicados aproximados</span></div>
+        <div class="metric"><strong>33</strong><span>complexidade aprox. em FiscalPrinter.confirm</span></div>
+        <div class="metric"><strong>28</strong><span>complexidade aprox. em PosApp.checkout</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Arquitetura Atual vs. Proposta</h2>
+      <div class="columns">
+        <div class="panel">
+          <h3>Atual</h3>
+          <div class="flow">
+            <div class="node"><strong>GTK/Glade Desktop</strong><small>Interface local com arquivos .ui</small></div>
+            <div class="node"><strong>stoq/gui</strong><small>PDV, vendas, estoque e financeiro</small></div>
+            <div class="node"><strong>stoqlib/domain</strong><small>Venda, produto, pagamento, pessoa e fiscal</small></div>
+            <div class="node"><strong>Storm ORM + PostgreSQL</strong><small>Persistência e migrações próprias</small></div>
+            <div class="node"><strong>Plugins fiscais</strong><small>ECF, dispositivos e integrações</small></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Proposta</h3>
+          <div class="flow">
+            <div class="node"><strong>Web/PWA PDV</strong><small>Interface moderna com piloto por caixa</small></div>
+            <div class="node"><strong>API REST</strong><small>Contratos para venda, estoque, pagamento e relatório</small></div>
+            <div class="node"><strong>Serviços de domínio</strong><small>sales, inventory, payment, fiscal e reporting</small></div>
+            <div class="node"><strong>Legacy Adapter</strong><small>Ponte com banco e regras antigas durante a transição</small></div>
+            <div class="node"><strong>Fiscal Gateway</strong><small>Adaptadores para NFC-e, ECF, TEF e impressão local</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Evidências Críticas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Arquivo</th>
+            <th>Problema</th>
+            <th>Refatoração proposta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>stoq/gui/pos.py</code></td>
+            <td><code>checkout()</code> mistura UI, venda, banco, cupom e plugins.</td>
+            <td>Extrair <code>CheckoutService</code> e <code>CheckoutCommand</code>.</td>
+          </tr>
+          <tr>
+            <td><code>stoq/lib/gui/fiscalprinter.py</code></td>
+            <td><code>confirm()</code> mistura fiscal, pagamento, transação e impressão.</td>
+            <td>Criar <code>SaleConfirmationWorkflow</code> com gateways.</td>
+          </tr>
+          <tr>
+            <td><code>stoqlib/domain/sale.py</code></td>
+            <td>Classe <code>Sale</code> acumula estoque, pagamento, fiscal, comissão e entrega.</td>
+            <td>Separar serviços de venda, estoque, pagamento e fiscal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Riscos e Mitigações</h2>
+      <ul class="risk-list">
+        <li><span class="tag red">alto</span> Quebra fiscal ou de pagamento: mitigar com testes de caracterização e homologação fiscal.</li>
+        <li><span class="tag red">alto</span> Perda de dados na migração: mitigar com backup, migração reversível e execução paralela.</li>
+        <li><span class="tag amber">médio</span> Resistência dos operadores: mitigar com piloto, atalhos e treinamento.</li>
+        <li><span class="tag green">controlável</span> Escopo excessivo: mitigar com modernização por fluxo, começando pelo PDV.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
